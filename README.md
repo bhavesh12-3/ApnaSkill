@@ -198,11 +198,30 @@ See the project requirements document for full schema with PKs, FKs, and constra
 
 ---
 
+## Deploying to GitHub Pages or Render
+
+The production build is a static site. Build and publish the generated `dist/` directory; do not publish the source directory. Vite uses relative asset paths so the same build works at a GitHub Pages repository URL and at a Render site URL.
+
+### GitHub Pages
+
+Set the repository's Pages source to **GitHub Actions**. The workflow in `.github/workflows/deploy.yml` builds the app and publishes it whenever changes are pushed to `main`.
+
+### Render
+
+Create a **Static Site** with these settings:
+
+| Setting | Value |
+|---|---|
+| Build command | `npm ci && npm run build` |
+| Publish directory | `dist` |
+
+The optional Express API (`npm run server`) is not needed for the static frontend; the demo uses browser localStorage.
+
 ## Build for Production
 
 ```bash
 npm run build
-# Output: dist/
+# Output: dist/ — publish this directory
 ```
 
 Serve `dist/` with any static host (Vercel, Netlify, GitHub Pages, NGINX).
